@@ -1,5 +1,5 @@
 [project]
-name = "productivity-study-system"
+name = "cadence"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -10,7 +10,7 @@ requires-python = ">=3.13"
 dependencies = []
 
 [project.scripts]
-productivity-study-system = "productivity_study_system:main"
+cadence = "cadence:main"
 
 [build-system]
 requires = ["uv_build>=0.11.23,<0.12.0"]
@@ -33,6 +33,9 @@ version_scheme = "pep440"
 version_provider = "uv"
 update_changelog_on_bump = true
 major_version_zero = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "S", "SIM"]
