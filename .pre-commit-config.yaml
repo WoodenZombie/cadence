@@ -1,18 +1,60 @@
-default_install_hook_types: [pre-commit, commit-msg]
+default_install_hook_types: [pre-commit, commit-msg, pre-push]
 
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.8.0
+    rev: v0.17.1
     hooks:
-      - id: ruff
+      - id: ruff-check
         args: [--fix]
       - id: ruff-format
 
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.13.5
+    hooks:
+      - id: uv-lock
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.15.1
+    hooks:
+      - id: hadolint-docker
+
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.24.0
+    hooks:
+      - id: markdownlint-cli2
+
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.38.0
+    hooks:
+      - id: yamllint
+
   - repo: local
     hooks:
+      - id: pyright
+        name: pyright
+        entry: uv run pyright
+        language: system
+        types: [python]
+        pass_filenames: false
+        stages: [pre-push]
+
       - id: commitizen
         name: commitizen check
         entry: uv run python -m commitizen check --commit-msg-file
         language: system
         stages: [commit-msg]
-        
