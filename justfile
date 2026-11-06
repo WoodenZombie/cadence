@@ -20,7 +20,7 @@ fmt:
 
 # Run the type checker
 typecheck:
-    uv run pyright
+    uv run python -m pyright
 
 # Run the test suite
 test *args:
@@ -35,8 +35,8 @@ check: lint fmt typecheck test
 
 # Create a commit with commitizen
 commit:
-    uv run cz commit
+    uv run python -m commitizen commit
 
 # Bump the version and update the changelog
 bump:
-    uv run cz bump
+    uv run python -m commitizen bump
